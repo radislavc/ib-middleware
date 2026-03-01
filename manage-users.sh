@@ -26,7 +26,7 @@ fi
 # 3. Generate the hash using Docker
 docker run --rm \
   -v $(pwd)/mosquitto/config:/mosquitto/config \
-  eclipse-mosquitto:2-alpine \
+  eclipse-mosquitto:latest \
   mosquitto_passwd $FLAG /mosquitto/config/password.txt "$USERNAME" "$PASSWORD"
 
 # 4. Check if successful and restart container
