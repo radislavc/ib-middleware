@@ -1,0 +1,9 @@
+{
+  "name": "mqtt-logger",
+  "version": "1.0.0",
+  "description": "MQTT to JSON Traffic Logger",
+  "main": "logger.js",
+  "dependencies": {
+    "mqtt": "^5.0.0"
+  }
+}
