@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Videon.click | Traffic Monitor</title>
+    <style>
+        body { font-family: monospace; background: #121212; color: #ececec; padding: 20px; }
+        .card { background: #1e1e1e; border-left: 4px solid #007bff; margin: 10px 0; padding: 10px; border-radius: 4px; }
+        .topic { color: #ffab00; font-weight: bold; }
+        .time { color: #888; font-size: 0.8em; }
+        h1 { color: #007bff; }
+    </style>
+</head>
+<body>
+    <h1>📡 Live MQTT Traffic (Local Test)</h1>
+    <div id="display">Loading traffic...</div>
+
+    <script>
+        async function updateMonitor() {
+            try {
+                const response = await fetch('/traffic.json');
+                const data = await response.json();
+                
+                document.getElementById('display').innerHTML = data.map(item => `
+                    <div class="card">
+                        <span class="time">[${new Date(item.time).toLocaleTimeString()}]</span><br>
+                        <span class="topic">${item.topic}</span>: ${item.payload}
+                    </div>
+                `).join('');
+            } catch (e) {
+                document.getElementById('display').innerHTML = "Waiting for data... (Ensure publisher.js is running)";
+            }
+        }
+
+        setInterval(updateMonitor, 2000);
+        updateMonitor();
+    </script>
+</body>
+</html>

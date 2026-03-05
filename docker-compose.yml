@@ -27,6 +27,20 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - /etc/letsencrypt:/etc/letsencrypt:ro
       - /var/www/certbot:/var/www/certbot:ro
+      - ./www_data:/var/www/html:ro
+    depends_on:
+      - mqtt
+    deploy:
+      resources:
+        limits:
+          memory: 64M
+
+  logger:
+    build: ./logger
+    container_name: mqtt_logger
+    restart: always
+    volumes:
+      - ./www_data:/var/www/html # Shared folder for the JSON file
     depends_on:
       - mqtt
     deploy:
